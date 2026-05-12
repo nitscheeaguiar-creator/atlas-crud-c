@@ -3,20 +3,20 @@
 Academic project developed in C as part of the ATLAS initiative  
 at UNIALFA — Systems Analysis & Development (ADS), 2026.
 
-## 📋 About
+# About
 
 Terminal-based people registration system using structs, dynamic ID generation,  
 and a menu-driven interface. The project is being built incrementally across  
 academic milestones (M1 → MF).
 
-## ✅ Current Features (M1)
+# Current Features (M1)
 
 - Register a person (name + CPF + auto-generated ID)
 - List all registered people in a formatted table
 - Input handling with `fgets` and `scanf`
 - Limit of 100 records (`#define MAX 100`)
 
-## 🚧 Upcoming Features
+# Upcoming Features
 
 - [ ] Search by name or CPF
 - [ ] Edit existing record
@@ -24,20 +24,20 @@ academic milestones (M1 → MF).
 - [ ] File persistence (save/load from `.dat` file)
 - [ ] Modular architecture (`.h` / `.c` files + Makefile)
 
-## 🛠️ Tech Stack
+# Tech Stack
 
 - Language: C (C99)
 - Compiler: GCC
 - OS: Windows / Linux
 
-## ▶️ How to Run
+# How to Run
 
 ```bash
 gcc main.c -o atlas
 ./atlas
 ```
 
-## 📁 Project Structure
+# Project Structure
 
 ```
 atlas-crud-c/
@@ -45,7 +45,7 @@ atlas-crud-c/
 └── README.md
 ```
 
-## 👤 Author
+# Author
 
 Nitsche Aguiar Araújo dos Santos  
 github.com/nitscheeaguiar-creator
