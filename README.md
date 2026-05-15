@@ -45,8 +45,8 @@ atlas-crud-c/
 └── README.md
 ```
 
-## ▶️ Run Online (no install needed)
-[Click here to run in browser](https://replit.com/link-do-seu-repl)
+## ▶️ Run Online
+[![Run on Replit](https://replit.com/badge/github/nitscheeaguiar-creator/atlas-crud-c)](https://replit.com/new/github/nitscheeaguiar-creator/atlas-crud-c)
 
 # Author
 
