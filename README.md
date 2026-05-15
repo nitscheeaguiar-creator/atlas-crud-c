@@ -45,6 +45,9 @@ atlas-crud-c/
 └── README.md
 ```
 
+## ▶️ Run Online (no install needed)
+[Click here to run in browser](https://replit.com/link-do-seu-repl)
+
 # Author
 
 Nitsche Aguiar Araújo dos Santos  
