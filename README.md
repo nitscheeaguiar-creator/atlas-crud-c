@@ -1,3 +1,5 @@
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/nitscheeaguiar-creator/atlas-crud-c)
+
 # ATLAS — Sistema de Cadastro de Pessoas (CRUD em C)
 
 Academic project developed in C as part of the ATLAS initiative  
@@ -44,9 +46,6 @@ atlas-crud-c/
 ├── main.c        ← main file (current)
 └── README.md
 ```
-
-## ▶️ Run Online
-[![Run on Replit](https://replit.com/badge/github/nitscheeaguiar-creator/atlas-crud-c)](https://replit.com/new/github/nitscheeaguiar-creator/atlas-crud-c)
 
 # Author
 
