@@ -1,4 +1,3 @@
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/nitscheeaguiar-creator/atlas-crud-c)
 
 # ATLAS — Sistema de Cadastro de Pessoas (CRUD em C)
 
