@@ -1,0 +1,3 @@
+tasks:
+  - init: gcc main.c -o atlas
+    command: ./atlas
