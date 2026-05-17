@@ -1,0 +1,5 @@
+{
+  "name": "ATLAS CRUD em C",
+  "image": "mcr.microsoft.com/devcontainers/c-cpp:latest",
+  "postAttachCommand": "gcc main.c -o atlas && ./atlas"
+}
