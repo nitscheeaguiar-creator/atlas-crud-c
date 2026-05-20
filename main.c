@@ -119,9 +119,8 @@ void buscar()
                pessoas[pos].nome,
                pessoas[pos].cpf);
     }
-
 }
-// Focar aquifklfsklfsdfsdfsajhfçhsfasçkhgafskhgdasflhgsdfklhgdsfklhgsdkghslkfgshgskfghdlghsjhdkjghkfhgdskkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+
 void editar()
 
 {
@@ -178,6 +177,29 @@ void editar()
     printf("\n--------------------");
 }
 
+void excluir()
+{
+
+    int idBusca;
+
+    if (total == 0)
+    {
+        printf("\nNenhum registro encontrado.\n");
+        return;
+    }
+    printf(" ------- Excluir um ID ------- ");
+    printf("\nInforme o ID da pessoa que quer deletar: ");
+    scanf("%d", &idBusca);
+
+    int pos = encontrarPorId(idBusca);
+    if (pos == -1)
+    {
+        printf("ID não encontrado.\n");
+        return;
+    }
+    --total;
+}
+
 int main()
 {
 
@@ -188,7 +210,7 @@ int main()
     {
 
         printf("\n---- Sistema de CRUD ----\n");
-        printf("1 - Criar\n2 - Listar\n3 - Buscar\n4 - Editar\n0 - Sair\n");
+        printf("1 - Criar\n2 - Listar\n3 - Buscar\n4 - Editar\n5 - Excluir\n0 - Sair\n");
         printf("Escolha: ");
 
         // Verificação para entrada de numero
@@ -214,6 +236,10 @@ int main()
 
         case 4:
             editar();
+            break;
+
+        case 5:
+            excluir();
             break;
 
         case 0:
