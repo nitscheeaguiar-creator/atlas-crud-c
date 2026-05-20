@@ -7,7 +7,7 @@
 typedef struct
 {
     char nome[50];
-    char cpf[15];
+    long long cpf[15];
     int id;
 } Pessoa;
 
