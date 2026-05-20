@@ -7,7 +7,7 @@
 typedef struct
 {
     char nome[50];
-    long long cpf[15];
+    char cpf[15];
     int id;
 } Pessoa;
 
@@ -77,7 +77,7 @@ void listar()
     {
         // Exibição de dados ativos
 
-        printf("%-5d | %-20s | %-15lld\n",
+        printf("%-5d | %-20s | %-15s\n",
                pessoas[i].id,
                pessoas[i].nome,
                pessoas[i].cpf);
@@ -114,7 +114,7 @@ void buscar()
         printf("%-5s | %-20s | %-15s\n", "ID", "NOME", "CPF");
         printf("--------------------------------------------\n");
 
-        printf("%-5d | %-20s | %-15lld\n",
+        printf("%-5d | %-20s | %-15s\n",
                pessoas[pos].id,
                pessoas[pos].nome,
                pessoas[pos].cpf);
@@ -160,7 +160,7 @@ void editar()
     printf("%-5s | %-20s | %-15s\n", "ID", "NOME", "CPF");
     printf("--------------------------------------------\n");
 
-    printf("%-5d | %-20s | %-15lld\n",
+    printf("%-5d | %-20s | %-15s\n",
            pessoas[pos].id,
            pessoas[pos].nome,
            pessoas[pos].cpf);
