@@ -3,17 +3,18 @@
 #include <string.h>
 
 #define MAX 100
+#define ARQUIVO_DADOS "dados.bin"
 
 typedef struct
 {
     char nome[50];
     char cpf[15];
-    int id;
+    int  id;
 } Pessoa;
 
 // Define a estrutura base do projeto
 Pessoa pessoas[MAX];
-int total = 0;
+int total  = 0;
 int nextId = 1;
 
 void limparBuffer()
@@ -27,11 +28,40 @@ int encontrarPorId(int id)
     for (int i = 0; i < total; i++)
     {
         if (pessoas[i].id == id)
-        {
             return i;
-        }
     }
     return -1;
+}
+
+void salvarDados()
+{
+    FILE *arq = fopen(ARQUIVO_DADOS, "wb");
+
+    if (arq == NULL)
+    {
+        printf("\nErro ao salvar os dados.\n");
+        return;
+    }
+
+    fwrite(&total,  sizeof(int),    1,     arq);
+    fwrite(&nextId, sizeof(int),    1,     arq);
+    fwrite(pessoas, sizeof(Pessoa), total, arq);
+
+    fclose(arq);
+}
+
+void carregarDados()
+{
+    FILE *arq = fopen(ARQUIVO_DADOS, "rb");
+
+    if (arq == NULL)
+        return;
+
+    fread(&total,  sizeof(int),    1,     arq);
+    fread(&nextId, sizeof(int),    1,     arq);
+    fread(pessoas, sizeof(Pessoa), total, arq);
+
+    fclose(arq);
 }
 
 void criar()
@@ -43,44 +73,46 @@ void criar()
     }
 
     Pessoa p;
-    p.id = nextId++;
+    Pessoa *pPtr = &p;
 
-    printf("\n---- Cadastro de Pessoa (ID: %d)----\n", p.id);
+    pPtr->id = nextId++;
+
+    printf("\n---- Cadastro de Pessoa (ID: %d)----\n", pPtr->id);
     printf("Informe o nome da pessoa: ");
     getchar();
-    fgets(p.nome, 50, stdin);
-    p.nome[strcspn(p.nome, "\n")] = '\0';
+    fgets(pPtr->nome, sizeof(pPtr->nome), stdin);
+    pPtr->nome[strcspn(pPtr->nome, "\n")] = '\0';
     printf("Informe o CPF: ");
-    fgets(p.cpf, 15, stdin);
-    p.cpf[strcspn(p.cpf, "\n")] = '\0';
+    fgets(pPtr->cpf, sizeof(pPtr->cpf), stdin);
+    pPtr->cpf[strcspn(pPtr->cpf, "\n")] = '\0';
 
-    pessoas[total] = p;
+    pessoas[total] = *pPtr;
     total++;
 
+    salvarDados();
     printf("\n---- Pessoa cadastrada! ----\n");
 }
 
 void listar()
 {
-
-    // Verifica se a base de dados está vazia antes de iniciar
     if (total == 0)
     {
         printf("\nNenhum registro encontrado.\n");
         return;
     }
+
     printf("\n------- Lista de Pessoas Cadastradas -------\n");
     printf("%-5s | %-20s | %-15s\n", "ID", "NOME", "CPF");
     printf("--------------------------------------------\n");
 
     for (int i = 0; i < total; i++)
     {
-        // Exibição de dados ativos
+        Pessoa *p = &pessoas[i];
 
         printf("%-5d | %-20s | %-15s\n",
-               pessoas[i].id,
-               pessoas[i].nome,
-               pessoas[i].cpf);
+               p->id,
+               p->nome,
+               p->cpf);
     }
 }
 
@@ -105,26 +137,24 @@ void buscar()
 
     if (pos == -1)
     {
-        printf("\nPessoa com ID %d não encontrada encontrado.\n", idBusca);
+        printf("\nPessoa com ID %d nao encontrada.\n", idBusca);
         return;
     }
-    {
 
-        printf("\n------- Lista da Pessoa Cadastrada -------\n");
-        printf("%-5s | %-20s | %-15s\n", "ID", "NOME", "CPF");
-        printf("--------------------------------------------\n");
+    Pessoa *p = &pessoas[pos];
 
-        printf("%-5d | %-20s | %-15s\n",
-               pessoas[pos].id,
-               pessoas[pos].nome,
-               pessoas[pos].cpf);
-    }
+    printf("\n------- Lista da Pessoa Cadastrada -------\n");
+    printf("%-5s | %-20s | %-15s\n", "ID", "NOME", "CPF");
+    printf("--------------------------------------------\n");
+
+    printf("%-5d | %-20s | %-15s\n",
+           p->id,
+           p->nome,
+           p->cpf);
 }
 
 void editar()
-
 {
-
     int idBusca;
 
     if (total == 0)
@@ -134,52 +164,48 @@ void editar()
     }
 
     printf("\nInforme o ID que deseja editar: ");
-    scanf("%d", &idBusca);
-
-    int pos = -1;
-
-    for (int i = 0; i < total; i++)
-
+    if (scanf("%d", &idBusca) != 1)
     {
-        if (pessoas[i].id == idBusca)
-
-        {
-            pos = i;
-            break;
-        }
+        limparBuffer();
+        return;
     }
+
+    int pos = encontrarPorId(idBusca);
 
     if (pos == -1)
     {
-
-        printf("\nPessoa com ID %d não encontrada.\n", idBusca);
+        printf("\nPessoa com ID %d nao encontrada.\n", idBusca);
         return;
     }
+
+    Pessoa *p = &pessoas[pos];
+
     printf("\n------- Lista da Pessoa Cadastrada -------\n");
     printf("%-5s | %-20s | %-15s\n", "ID", "NOME", "CPF");
     printf("--------------------------------------------\n");
 
     printf("%-5d | %-20s | %-15s\n",
-           pessoas[pos].id,
-           pessoas[pos].nome,
-           pessoas[pos].cpf);
+           p->id,
+           p->nome,
+           p->cpf);
 
     printf("\nNovo nome: ");
     getchar();
-    fgets(pessoas[pos].nome, 50, stdin);
-    pessoas[pos].nome[strcspn(pessoas[pos].nome, "\n")] = '\0';
+    fgets(p->nome, sizeof(p->nome), stdin);
+    p->nome[strcspn(p->nome, "\n")] = '\0';
+
     printf("Novo  CPF: ");
+    fgets(p->cpf, sizeof(p->cpf), stdin);
+    p->cpf[strcspn(p->cpf, "\n")] = '\0';
 
-    scanf("%lld", &pessoas[pos].cpf);
-
+    salvarDados();
     printf("\n--------------------");
     printf("\nRegistro atualizado");
-    printf("\n--------------------");
+    printf("\n--------------------\n");
 }
 
 void excluir()
 {
-
     int idBusca;
 
     if (total == 0)
@@ -187,46 +213,62 @@ void excluir()
         printf("\nNenhum registro encontrado.\n");
         return;
     }
+
     printf(" ------- Excluir um ID ------- ");
     printf("\nInforme o ID da pessoa que quer deletar: ");
-    scanf("%d", &idBusca);
-
-    int pos = encontrarPorId(idBusca);
-    if (pos == -1)
+    if (scanf("%d", &idBusca) != 1)
     {
-        printf("ID não encontrado.\n");
+        limparBuffer();
         return;
     }
+
+    int pos = encontrarPorId(idBusca);
+
+    if (pos == -1)
+    {
+        printf("ID nao encontrado.\n");
+        return;
+    }
+
+    Pessoa *p = &pessoas[pos];
+    (void)p;
+
+    for (int i = pos; i < total - 1; i++)
+        pessoas[i] = pessoas[i + 1];
+
     --total;
+
+    salvarDados();
+    printf("\nRegistro excluido com sucesso!\n");
 }
 
 int main()
 {
+    int opcao   = -1;
+    int *pOpcao = &opcao;
 
-    int opcao = -1;
+    carregarDados();
 
-    // Mantem o programa funcioando ate o usuario encerrar
-    while (opcao != 0)
+    while (*pOpcao != 0)
     {
-
         printf("\n---- Sistema de CRUD ----\n");
         printf("1 - Criar\n2 - Listar\n3 - Buscar\n4 - Editar\n5 - Excluir\n0 - Sair\n");
         printf("Escolha: ");
 
-        // Verificação para entrada de numero
-        if (scanf("%d", &opcao) != 1)
+        if (scanf("%d", pOpcao) != 1)
         {
+            printf("\nEntrada invalida! Digite um numero.\n");
+            limparBuffer();
+            continue;
         }
-        // Direciona a funcionalidade escolhida pelo usuario
-        switch (opcao)
+
+        switch (*pOpcao)
         {
         case 1:
-
             criar();
             break;
 
         case 2:
-
             listar();
             break;
 
@@ -243,14 +285,11 @@ int main()
             break;
 
         case 0:
-
             printf("\nSaindo...\n");
             break;
 
         default:
-
-            printf("\n---- Operação invalida! ----\n");
-
+            printf("\n---- Operacao invalida! ----\n");
             while (getchar() != '\n')
                 ;
         }
